@@ -61,6 +61,6 @@ public class RestController {
   public Book remove(@PathVariable String id) {
     Book book = library.delete(id);
 
-    rreturn book;
+    return book;
   }
 }
