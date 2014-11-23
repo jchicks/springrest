@@ -20,47 +20,47 @@ import springrest.web.mvc.model.Book;
 @Controller
 @RequestMapping("api/rest/books")
 public class RestController {
-  
+
   @Resource(name="library")
   Library library;
-  
+
   @ResponseBody
   @RequestMapping(method=RequestMethod.GET) 
   public Collection<Book> getAll() {
-      return library.getAll();
+    return library.getAll();
   }
-  
+
   @ResponseBody
   @ResponseStatus(HttpStatus.CREATED)
   @RequestMapping(method=RequestMethod.POST, consumes="application/json")
   public Book create(@RequestBody Book book) {
-      library.add(book);
-      
-      return book;
+    library.add(book);
+
+    return book;
   }
-  
+
   @ResponseBody
   @RequestMapping(value="{id}", method=RequestMethod.GET)
   public final Book read( @PathVariable("id") String id) {
-      return library.get(id);
+    return library.get(id);
   }
-  
+
   @ResponseBody
   @ResponseStatus(HttpStatus.OK)
   @RequestMapping(value="{id}", method=RequestMethod.PUT) 
   public Book update(@PathVariable String id, @RequestBody Book book) {
-      Assert.isTrue(book.getId().equals(id));
-      
-      Book updatedBook = library.update(book);
-      
-      return updatedBook;
+    Assert.isTrue(book.getId().equals(id));
+
+    Book updatedBook = library.update(book);
+
+    return updatedBook;
   }
-  
+
   @ResponseStatus(HttpStatus.OK)
   @RequestMapping(value="{id}", method=RequestMethod.DELETE) 
   public Book remove(@PathVariable String id) {
-      Book book = library.delete(id);
-      
-      return book;
+    Book book = library.delete(id);
+
+    return book;
   }
 }
