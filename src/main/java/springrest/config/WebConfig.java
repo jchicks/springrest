@@ -18,25 +18,25 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @ComponentScan(basePackages = "springrest.web.mvc.*")
 public class WebConfig extends WebMvcConfigurerAdapter {
   
-  @PostConstruct
-  public void init() {
-    BasicConfigurator.configure();
-    
-    Logger rootLogger = Logger.getRootLogger();
-    
-    rootLogger.setLevel(Level.TRACE);
-    PatternLayout layout = new PatternLayout("%d{ISO8601} [%t] %-5p %c %x - %m%n");
-    
-    rootLogger.addAppender(new ConsoleAppender(layout));
-    
-    System.out.println("Sup---------");
-    
-    rootLogger.info("sup +++++");
-    
-    Logger springLogger = Logger.getLogger("org.springframework");
-    
-    springLogger.setLevel(Level.TRACE);
-  }
+//  @PostConstruct
+//  public void init() {
+//    BasicConfigurator.configure();
+//    
+//    Logger rootLogger = Logger.getRootLogger();
+//    
+//    rootLogger.setLevel(Level.TRACE);
+//    PatternLayout layout = new PatternLayout("%d{ISO8601} [%t] %-5p %c %x - %m%n");
+//    
+//    rootLogger.addAppender(new ConsoleAppender(layout));
+//    
+//    System.out.println("Sup---------");
+//    
+//    rootLogger.info("sup +++++");
+//    
+//    Logger springLogger = Logger.getLogger("org.springframework");
+//    
+//    springLogger.setLevel(Level.TRACE);
+//  }
   
   @Override
   public void addResourceHandlers(ResourceHandlerRegistry registry) {
