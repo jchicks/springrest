@@ -4,8 +4,8 @@ import java.util.Collection;
 
 import javax.annotation.Resource;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.log4j.Logger;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
@@ -23,7 +23,7 @@ import springrest.web.mvc.model.Book;
 @RequestMapping("api/rest/books")
 public class RestController {
 
-  private final Logger logger = LoggerFactory.getLogger(RestController.class);
+  private final Logger logger = Logger.getLogger(RestController.class);
   
   @Resource(name="library")
   Library library;
