@@ -37,16 +37,16 @@ public class AlternateRestController {
   @ResponseStatus(HttpStatus.CREATED)
   @RequestMapping(value="api/alt/rest/books", 
                   method=RequestMethod.POST)
-  public Book create(@RequestBody Book   book,
-                     HttpSession         session,
-                     HttpServletRequest  request,
-                     HttpServletResponse response) {
-    Assert.isNull(library.get(book.getId()));
-    
-    library.add(book);
-
-    return book;
-  }
+  public Book create(@RequestBody Book   book,          // Just demonstrating spring's 
+                     HttpSession         session,       // use of AOP point cuts and how 
+                     HttpServletRequest  request,       // you can pass in all sorts of types 
+                     HttpServletResponse response) {    // and let the spring dispatch servlet 
+    Assert.isNull(library.get(book.getId()));           // determine what parameters you need 
+                                                        // based on it's fancy use of java reflection.
+    library.add(book);                                  // With the @RequestBody and @Pathvariable 
+                                                        // annotations you'll rarely need to make
+    return book;                                        // use of session, request, and response
+  }                                                     // variable injection.
 
   @ResponseBody
   @RequestMapping(value="api/alt/rest/books/{id}", 
