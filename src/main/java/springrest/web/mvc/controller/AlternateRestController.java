@@ -3,6 +3,9 @@ package springrest.web.mvc.controller;
 import java.util.Collection;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -18,22 +21,26 @@ import springrest.web.mvc.dao.Library;
 import springrest.web.mvc.model.Book;
 
 @Controller
-@RequestMapping("api/rest/books")
-public class RestController {
+public class AlternateRestController {
 
   @Resource(name="library")
   Library library;
-
+  
   @ResponseBody
-  @RequestMapping(method=RequestMethod.GET) 
+  @RequestMapping(value="api/alt/rest/books", 
+                  method=RequestMethod.GET) 
   public Collection<Book> getAll() {
     return library.getAll();
   }
-
+  
   @ResponseBody
   @ResponseStatus(HttpStatus.CREATED)
-  @RequestMapping(method=RequestMethod.POST, consumes="application/json")
-  public Book create(@RequestBody Book book) {
+  @RequestMapping(value="api/alt/rest/books", 
+                  method=RequestMethod.POST)
+  public Book create(@RequestBody Book   book,
+                     HttpSession         session,
+                     HttpServletRequest  request,
+                     HttpServletResponse response) {
     Assert.isNull(library.get(book.getId()));
     
     library.add(book);
@@ -42,15 +49,17 @@ public class RestController {
   }
 
   @ResponseBody
-  @RequestMapping(value="{id}", method=RequestMethod.GET)
+  @RequestMapping(value="api/alt/rest/books/{id}", 
+                  method=RequestMethod.GET)
   public final Book read( @PathVariable("id") String id) {
     return library.get(id);
   }
-
+  
   @ResponseBody
   @ResponseStatus(HttpStatus.OK)
-  @RequestMapping(value="{id}", method=RequestMethod.PUT) 
-  public Book update(@PathVariable String id, @RequestBody Book book) {
+  @RequestMapping(value="api/alt/rest/books/{id}", 
+                  method=RequestMethod.PUT) 
+  public Book update(@PathVariable("id") String id, @RequestBody Book book) {
     Assert.isTrue(book.getId().equals(id));
 
     Book updatedBook = library.update(book);
@@ -59,8 +68,9 @@ public class RestController {
   }
 
   @ResponseStatus(HttpStatus.OK)
-  @RequestMapping(value="{id}", method=RequestMethod.DELETE) 
-  public Book remove(@PathVariable String id) {
+  @RequestMapping(value="api/alt/rest/books/{id}", 
+                  method=RequestMethod.DELETE) 
+  public Book remove(@PathVariable("id") String id) {
     Book book = library.delete(id);
 
     return book;
